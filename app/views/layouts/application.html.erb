@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2New</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+<body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+      <div class="row">
+        <div class="nav navbar-nav navbar-left col-lg-8"style='padding-left:30px;'><h3 style='color:#FFFFFF;'>Bookers</h3></div>
+
+      <nav>
+        <div class="col-lg-4">
+          <% if user_signed_in? %>
+          <ul class="nav navbar-nav navbar-right text-muted">
+            <li><%= link_to "Home", user_path(current_user.id), class: 'glyphicon glyphicon-home' %></li>
+            <li><%= link_to "Users", users_path, class: 'glyphicon glyphicon-user' %></li>
+            <li><%= link_to "Books", books_path, class: 'glyphicon glyphicon-book' %></li>
+            <li><%= link_to "logout", destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out' %></li>
+          </ul>
+          <% else %>
+          <ul class="nav navbar-nav navbar-right text-muted">
+            <li><%= link_to "Home", root_path, class: 'glyphicon glyphicon-home' %></li>
+            <li><%= link_to "About", home_about_path, class: 'glyphicon glyphicon-link' %></li>
+            <li><%= link_to "Sign up", new_user_registration_path, class: 'glyphicon glyphicon-edit' %></li>
+            <li><%= link_to "login", new_user_session_path, class: 'glyphicon glyphicon-log-in' %></li>
+          </ul>
+          <% end %>
+        </div> <!-- col -->
+      </nav>
+      </div> <!-- row -->
+      </div> <!-- container -->
+    </header>
+
+    <div class="main"style='margin-top:100px;'>
+    <div class="message"style='margin-left:50px;'>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+      <%= yield %>
+    </div>
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-lg-8"></div>
+        <div class="col-lg-4">
+          <p>CopyRight Infratop.inc</p>
+        </div>
+      </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
+

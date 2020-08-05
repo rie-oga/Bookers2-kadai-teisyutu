@@ -1,0 +1,55 @@
+<div class="row">
+<div class="user-info">
+  <h2>User info</h2>
+  <td><%= attachment_image_tag user, :profile_image, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size: "100x100" %>
+    <table class="table">
+      <tr><td><strong>name</strong></td><td><span><%= user.name %></span></td></tr>
+      <tr><td><strong>introduction</strong></td><td><span><%= user.introduction %></span></td></tr>
+    </table>
+    <!-- ボタンあってるか分からない -->
+    <% if user.id == current_user.id %>
+    <%= link_to edit_user_path(user.id), class: 'btn btn-default btn-block' do %>
+      <i class="glyphicon glyphicon-wrench"></i>
+    <% end %>
+    <% end %>
+
+    <% if user.id != current_user.id %>
+    <%= link_to user_path(user.id), class: 'btn btn-default btn-block' do %>
+      <i class="glyphicon glyphicon-wrench"></i>
+    <% end %>
+    <% end %>
+    <!-- ボタンここまで -->
+</div>
+
+
+  <h2>New book</h2>
+
+<!-- form_for部分 -->
+<div class="form-for">
+<%= form_for(book) do |f| %>
+
+  <% if book.errors.any? %>
+    <div id="error_explanation">
+    <h2><%= book.errors.count %>errors prohibited this obj from being saved:</h2>
+    <ul>
+    <% book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+    </div>
+  <% end %>
+
+
+      <h5><strong>Title</strong></h5>
+        <%= f.text_field :title %>
+      <h5><strong>Opinion</strong></h5>
+        <%= f.text_area :body %>
+      <div class="create-book-button row">
+        <%= f.submit 'Create Book', class: "btn-primary btn-sm btn-block" %>
+      </div>
+
+<% end %>
+</div>
+<!-- formforここまで -->
+</div> <!-- row -->
+

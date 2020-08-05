@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-3">
+            <%= render 'books/list', book: @book, user: @user %>
+		</div>
+		<div class="col-xs-9">
+		    <h1>Book detail</h1>
+			<table class="table">
+				<tr>
+					<td><p><%= attachment_image_tag @user, :profile_image, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size: "60x60" %></p><br>
+					    <p><%= link_to @user.name, user_path(@user.id) %></p></td>
+					<td><span><%= link_to @book_detail.title, book_path(@book_detail.id) %></span></td>
+					<td><span><%= @book_detail.body %></span></td>
+
+				<% if @book_detail.user_id == current_user.id %> <!-- 投稿者でなければ、編集ボタン、削除ボタンが表れない -->
+					<td><%= link_to "Edit", edit_book_path(@book_detail.id), class: "btn-success btn-sm" %></td>
+					<td><%= link_to "Destroy", book_path(@book_detail.id), class: "btn-danger btn-sm", method: :delete, "data-confirm" => "Are you sure?" %></td>
+				<% end %>
+				</tr>
+			</table>
+		</div> <!-- col -->
+	</div> <!-- row -->
+</div> <!-- container -->
+

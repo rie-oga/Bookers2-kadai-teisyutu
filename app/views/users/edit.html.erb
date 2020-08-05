@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <h2>User info</h2>
+    </div>
+    <div class="row">
+        <!-- エラーメッセージ -->
+        <%= h(flash[:notice]) %>
+        <!-- ここまで -->
+    </div>
+
+    <!-- form_for部分 -->
+    <div class="form-for row">
+    <%= form_for(@user) do |f| %>
+
+        <% if @user.errors.any? %>
+            <div id="error_explanation">
+            <h2><%= @user.errors.count %>errors prohibited this obj from being saved:</h2>
+                <ul>
+                    <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+
+        <h5><strong>Name</strong><%= f.text_field :name %></h5>
+        <h5><strong>Image</strong></h5>
+        <div class="select-file">
+            <%= f.attachment_field :profile_image, placeholder: "プロフィール画像", class: "user-edit-form" %>
+        </div>
+        <h5><strong>Introduction</strong><%= f.text_area :introduction %></h5>
+        <div class="updateuser-button">
+            <%= f.submit 'Update User', class: "btn btn-sm" %>
+        </div>
+
+    <% end %>
+    </div><!-- row --><!-- formforここまで -->
+</div><!-- container -->
