@@ -17,4 +17,9 @@ Rails.application.routes.draw do
   #model Book
   resources :books, except: [:new]
 
+  resources :relationships, only: [:create, :destroy]
+  get 'relationship/follow/:id' => 'relationships#follow' ,as: 'follow'
+  get 'relationship/follower/:id' => 'relationships#follower' ,as: 'follower'
+
+
 end

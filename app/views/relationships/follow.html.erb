@@ -1,0 +1,30 @@
+<!-- フォロワーしてる人がいなかったら -->
+<% if @user.followings.count == 0 %>
+
+	<p>ユーザーはいません</p>
+
+<!-- ここまで -->
+<!-- フォロワーしてる人がいたら -->
+<% else %>
+
+  <h2>Following Usersページ</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>image</th>
+				<th>name</th>
+				<th colspan="4"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @user.followings.each do |following| %>
+			<tr>
+          		<td><%= attachment_image_tag following, :profile_image, fallback: "no_image.jpg", size: "50x50" %></td>
+              	<td><%= following.name %></td>
+          		<td>フォロー数：<%= following.followings.count %></td>
+          		<td>フォロワー数：<%= following.followers.count %></td>
+          		<td><%= link_to "Show", user_path(following.id) %></td>
+          	</tr>
+			<% end %>
+		</tbody>
+<% end %>
